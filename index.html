@@ -3,101 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Zone Store</title>
+    <title>Premium Zone</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #050505;
-            color: white;
-        }
-
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .gradient-text {
-            background: linear-gradient(90deg, #a855f7, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .anim-scale:active { transform: scale(0.95); transition: 0.2s; }
-        
-        .pulse-glow { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(168, 85, 247, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
-        }
+        body { background: #050505; color: white; font-family: sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .page { display: none; }
+        .active { display: block; }
+        .anim { transition: all 0.3s ease; }
+        .anim:active { transform: scale(0.95); }
     </style>
 </head>
 <body class="p-4">
 
-    <header class="flex justify-between items-center mb-8 pt-4">
-        <div>
-            <h1 class="text-3xl font-black tracking-tighter">PREMIUM <span class="gradient-text">ZONE</span></h1>
-            <p class="text-slate-500 text-sm">Tezkor va xavfsiz xizmat</p>
-        </div>
-        <div class="w-12 h-12 rounded-full glass flex items-center justify-center pulse-glow">
-            <i class="fa-solid fa-gem text-purple-400"></i>
-        </div>
-    </header>
+    <div class="flex justify-between items-center mb-6">
+        <h1 id="title" class="text-2xl font-black">PREMIUM ZONE</h1>
+        <button id="back-btn" onclick="goBack()" class="hidden bg-white/10 px-3 py-1 rounded-lg text-sm"><i class="fa fa-arrow-left"></i></button>
+    </div>
 
-    <main id="app-container" class="space-y-6">
-        
+    <div id="main-page" class="page active space-y-6">
         <section>
-            <h2 class="text-xs font-bold text-slate-400 uppercase mb-3 flex items-center gap-2">
-                <i class="fa-solid fa-fire text-orange-500"></i> Hot Sotuvlar
-            </h2>
-            <div class="grid grid-cols-1 gap-4">
-                <div class="glass p-5 rounded-3xl anim-scale border-l-4 border-orange-500" onclick="buyProduct('Premium 1 Oy (Login) [HOT]', '42,000')">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="font-bold">Premium 1 Oy (Login)</p>
-                            <p class="text-xs text-slate-400">Tezkor faollashtirish</p>
-                        </div>
-                        <span class="font-black text-orange-400">42,000 UZS</span>
-                    </div>
+            <h2 class="text-xs font-bold text-orange-500 uppercase mb-3"><i class="fa fa-fire"></i> Hot Sotuvlar</h2>
+            <div class="grid grid-cols-1 gap-3">
+                <div class="glass p-4 rounded-2xl anim flex justify-between items-center" onclick="buyProduct('Premium 1 Oy (Login)', '42,000')">
+                    <div><p class="text-sm font-bold">Premium 1 Oy (Login)</p><p class="text-[10px] text-slate-400">42,000 UZS</p></div>
+                    <i class="fa fa-shopping-cart text-orange-500"></i>
+                </div>
+                <div class="glass p-4 rounded-2xl anim flex justify-between items-center" onclick="buyProduct('100 Telegram Stars', '27,000')">
+                    <div><p class="text-sm font-bold">100 Telegram Stars</p><p class="text-[10px] text-slate-400">27,000 UZS</p></div>
+                    <i class="fa fa-star text-yellow-500"></i>
                 </div>
             </div>
         </section>
 
         <section>
             <h2 class="text-xs font-bold text-slate-400 uppercase mb-3">Kategoriyalar</h2>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="glass p-4 rounded-3xl text-center anim-scale" onclick="showCategory('login')">
-                    <i class="fa-solid fa-user-lock text-2xl mb-2 text-indigo-400"></i>
-                    <p class="text-xs font-bold">Login</p>
+            <div class="grid grid-cols-2 gap-3">
+                <div class="glass p-5 rounded-2xl text-center anim" onclick="openPage('login-page', 'Login orqali')">
+                    <i class="fa fa-user-lock text-indigo-400 mb-2"></i><p class="text-xs font-bold">Login</p>
                 </div>
-                <div class="glass p-4 rounded-3xl text-center anim-scale" onclick="showCategory('gift')">
-                    <i class="fa-solid fa-gift text-2xl mb-2 text-purple-400"></i>
-                    <p class="text-xs font-bold">Gift Link</p>
+                <div class="glass p-5 rounded-2xl text-center anim" onclick="openPage('gift-page', 'Gift Link')">
+                    <i class="fa fa-gift text-purple-400 mb-2"></i><p class="text-xs font-bold">Gift Link</p>
+                </div>
+                <div class="glass p-5 rounded-2xl text-center anim" onclick="openPage('stars-page', 'Stars')">
+                    <i class="fa fa-star text-yellow-400 mb-2"></i><p class="text-xs font-bold">Stars</p>
                 </div>
             </div>
         </section>
-    </main>
+    </div>
+
+    <div id="login-page" class="page space-y-3">
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('Premium 1 Oy (Login)', '42,000')"><span>1 Oy</span><span>42,000</span></button>
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('Premium 1 Yil (Login)', '300,000')"><span>1 Yil</span><span>300,000</span></button>
+    </div>
+
+    <div id="gift-page" class="page space-y-3">
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('Premium 1 Oy (Gift)', '220,000')"><span>1 Oy</span><span>220,000</span></button>
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('Premium 6 Oy (Gift)', '345,000')"><span>6 Oy</span><span>345,000</span></button>
+    </div>
+
+    <div id="stars-page" class="page space-y-3">
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('50 Stars', '15,000')"><span>50 Stars</span><span>15,000</span></button>
+        <button class="glass w-full p-4 rounded-xl flex justify-between" onclick="buyProduct('100 Stars', '27,000')"><span>100 Stars</span><span>27,000</span></button>
+    </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.ready();
         tg.expand();
 
-        function buyProduct(name, price) {
-            tg.HapticFeedback.impactOccurred('medium'); // Tugma bosilganda vibratsiya
-            tg.sendData(JSON.stringify({ product_name: name, product_price: price }));
+        function openPage(id, title) {
+            document.getElementById('main-page').classList.remove('active');
+            document.getElementById(id).classList.add('active');
+            document.getElementById('title').innerText = title;
+            document.getElementById('back-btn').classList.remove('hidden');
         }
 
-        function showCategory(type) {
-            tg.HapticFeedback.impactOccurred('light');
-            alert(type + " kategoriyasi tez orada ochiladi!");
+        function goBack() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('main-page').classList.add('active');
+            document.getElementById('title').innerText = "PREMIUM ZONE";
+            document.getElementById('back-btn').classList.add('hidden');
+        }
+
+        function buyProduct(name, price) {
+            tg.HapticFeedback.impactOccurred('medium');
+            tg.sendData(JSON.stringify({ product_name: name, product_price: price }));
         }
     </script>
 </body>
