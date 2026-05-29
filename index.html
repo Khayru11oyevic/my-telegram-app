@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Zone Store</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .premium-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-6px);
+            border-color: #a855f7;
+            box-shadow: 0 20px 30px -10px rgba(168, 85, 247, 0.25);
+        }
+        .stars-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .stars-card:hover {
+            transform: translateY(-6px);
+            border-color: #eab308;
+            box-shadow: 0 20px 30px -10px rgba(234, 179, 8, 0.25);
+        }
+        /* Skrollbarni chiroyli qilish */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-10">
+
+    <header class="px-6 pt-6 pb-4 sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-md border-b border-white/5">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-gradient-to-tr from-purple-600 to-indigo-500 rounded-full flex items-center justify-center shadow-lg shadow-purple-500/30 text-white">
+                    <i class="fa-solid fa-gem text-lg animate-pulse"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-wide bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">Premium Zone</h1>
+                    <p class="text-xs text-purple-400 font-medium">Xush kelibsiz, <span id="user-name" class="text-white font-bold">Mijoz</span>! 👋</p>
+                </div>
+            </div>
+            <div class="bg-slate-800/80 px-3 py-1.5 rounded-full border border-white/10 flex items-center gap-2">
+                <i class="fa-solid fa-shield-halved text-emerald-400 text-xs"></i>
+                <span class="text-xs font-semibold text-slate-300">Xavfsiz To'lov</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="px-5 mt-6 space-y-8">
+        
+        <section>
+            <div class="flex items-center gap-2 mb-4 px-1">
+                <i class="fa-solid fa-star text-purple-500 text-sm"></i>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400">Telegram Premium</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div class="premium-card rounded-2xl p-5 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-purple-500/10 text-purple-400 text-xs px-2 py-0.5 rounded-md font-bold">3 OY</span>
+                            <h3 class="font-bold text-lg text-white">Premium Obuna</h3>
+                        </div>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-circle-check text-purple-400 mr-1"></i> Eksklyuziv funksiyalar</p>
+                        <p class="text-sm font-black text-purple-400 pt-1">65,000 so'm</p>
+                    </div>
+                    <button onclick="buyProduct('Telegram Premium (3 Oy)', '65,000')" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-lg shadow-purple-600/20 active:scale-95 transition-transform duration-150">
+                        Sotib olish
+                    </button>
+                </div>
+
+                <div class="premium-card rounded-2xl p-5 flex items-center justify-between border-l-2 border-l-purple-500">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-purple-500/20 text-purple-300 text-xs px-2 py-0.5 rounded-md font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-fire text-[10px] text-amber-400"></i> 6 OY
+                            </span>
+                            <h3 class="font-bold text-lg text-white">Premium Obuna</h3>
+                        </div>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-circle-check text-purple-400 mr-1"></i> Eng ommabop paket</p>
+                        <p class="text-sm font-black text-purple-400 pt-1">115,000 so'm</p>
+                    </div>
+                    <button onclick="buyProduct('Telegram Premium (6 Oy)', '115,000')" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-lg shadow-purple-600/20 active:scale-95 transition-transform duration-150">
+                        Sotib olish
+                    </button>
+                </div>
+
+                <div class="premium-card rounded-2xl p-5 flex items-center justify-between">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-emerald-500/10 text-emerald-400 text-xs px-2 py-0.5 rounded-md font-bold">1 YIL</span>
+                            <h3 class="font-bold text-lg text-white">Premium Obuna</h3>
+                        </div>
+                        <p class="text-xs text-slate-400"><i class="fa-solid fa-percent text-emerald-400 mr-1"></i> Katta tejamkorlik (Yillik)</p>
+                        <p class="text-sm font-black text-purple-400 pt-1">195,000 so'm</p>
+                    </div>
+                    <button onclick="buyProduct('Telegram Premium (1 Yil)', '195,000')" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs px-5 py-3 rounded-xl shadow-lg shadow-purple-600/20 active:scale-95 transition-transform duration-150">
+                        Sotib olish
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div class="flex items-center gap-2 mb-4 px-1">
+                <i class="fa-solid fa-star text-yellow-500 text-sm"></i>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-slate-400">Telegram Stars (Yulduzlar)</h2>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div class="stars-card rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div>
+                        <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white">50 Stars Paketi</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Mini ilovalar uchun</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5 mt-2">
+                        <span class="text-xs font-extrabold text-amber-400">18,000 s</span>
+                        <button onclick="buyProduct('50 Telegram Stars', '18,000')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-2 rounded-lg active:scale-95 transition-transform">
+                            OLISH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stars-card rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div>
+                        <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white">100 Stars Paketi</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Reaksiyalar va o'yinlar</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5 mt-2">
+                        <span class="text-xs font-extrabold text-amber-400">35,000 s</span>
+                        <button onclick="buyProduct('100 Telegram Stars', '35,000')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-2 rounded-lg active:scale-95 transition-transform">
+                            OLISH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stars-card rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div>
+                        <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white">250 Stars Paketi</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Katta imkoniyatlar</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5 mt-2">
+                        <span class="text-xs font-extrabold text-amber-400">82,000 s</span>
+                        <button onclick="buyProduct('250 Telegram Stars', '82,000')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-2 rounded-lg active:scale-95 transition-transform">
+                            OLISH
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stars-card rounded-2xl p-4 flex flex-col justify-between h-40">
+                    <div>
+                        <div class="w-8 h-8 bg-amber-500/10 rounded-lg flex items-center justify-center mb-2">
+                            <i class="fa-solid fa-star text-amber-400 text-sm"></i>
+                        </div>
+                        <h3 class="font-bold text-sm text-white">500 Stars Paketi</h3>
+                        <p class="text-[11px] text-slate-400 mt-0.5">Maksimal daraja</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-white/5 mt-2">
+                        <span class="text-xs font-extrabold text-amber-400">160,000 s</span>
+                        <button onclick="buyProduct('500 Telegram Stars', '160,000')" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[10px] px-3 py-2 rounded-lg active:scale-95 transition-transform">
+                            OLISH
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Telegram Web App API'sini yuklaymiz
+        const tg = window.Telegram.WebApp;
+        
+        // Ilovani to'liq ekranga yoyamiz va tayyor holatga keltiramiz
+        tg.ready();
+        tg.expand();
+
+        // Ranglar interfeysini Telegram ranglariga moslash (Majburiy emas, lekin chiroyli qiladi)
+        tg.setHeaderColor('#0f172a');
+        tg.setBackgroundColor('#0f172a');
+
+        // Kirgan foydalanuvchining ismini avtomatik aniqlash va Header'ga chiqarish
+        const userData = tg.initDataUnsafe?.user;
+        if (userData && userData.first_name) {
+            document.getElementById('user-name').innerText = userData.first_name;
+        }
+
+        // Mahsulot tugmasi bosilganda ishlaydigan asosiy funksiya
+        function buyProduct(name, price) {
+            // Python botga yuboriladigan ma'lumot tuzilmasi
+            const orderData = {
+                product_name: name,
+                product_price: price
+            };
+
+            // Telegram orqali JSON formatida ma'lumotni yuboramiz
+            tg.sendData(JSON.stringify(orderData));
+            
+            // Ma'lumot uzatilgach, ilovani avtomatik ravishda chiroyli yopish
+            tg.close();
+        }
+    </script>
+</body>
+</html>
